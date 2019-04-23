@@ -1,0 +1,57 @@
+<!-- THIS IS A BASE TEMPLATE FOR ALL OTHER PAGES-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css") }}" type="text/css"/>
+
+        {% endblock %}
+
+        {% block extraHead %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="container" align="center">
+            <header id="header">
+                {% block header %}
+                <div style="float:none;width:300px;height:100px">
+                    <img src="{{url_for("static", filename="images/banner_pre.png")}}" style="display:center; width:50px;height:50px" onclick="window.location.href='/index'"/>
+                    <span style="color:black;font-size:40px;font-family:sansserif;">Let Buy!</span>
+                </div>
+                <div id="icon">
+                        <img src="{{url_for("static", filename="images/ic_shopbag.png")}}" onclick="window.location.href='/orderCreate'"/>
+                        <a href="/orderCreate"><span id="ShoppingBag" >ShoppingBag</span></a>
+                        <img src="{{url_for("static", filename="images/Group 2.png")}}" onclick="window.location.href='/login'"/>
+                        <a href="/register"><span id = "user">New Account</span></a>
+                        <img src="{{url_for("static", filename="images/ic_logout.png")}}" onclick="window.location.href='/logout'"/>
+                </div>
+                <div class="clr">
+                </div>
+                {% endblock %}
+            </header>
+
+            <div class="feature">
+                {% block feature %}
+                    
+                        <h2 style="color:white">AAA</h2>
+                {% endblock %}
+            </div>
+
+            <div id="mainBody">
+                {% block mainBody %}
+                    
+                {% endblock %}
+                <p> </p>
+            </div>
+
+            <footer id="footer">
+                {% block footer %}
+                    <p><a href="#">Your ShoppingBag</a> &#124; <a href="#">Help</a> &#124; <a href="#">Contact</a></p>
+                {% endblock %}
+            </footer>
+        </div>
+    </body>
+</html>

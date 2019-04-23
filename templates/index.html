@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block extraHead %}
+<script type="text/javascript">
+        function getId(el) {
+                var id = el.id;
+                console.log(el.name);
+                console.log(id);
+                if(el.name != 0){
+                        // dataJson = {'id':data}
+                        // alert(dataJson.id);
+                        console.log(id);
+                        $.ajax({
+                                url: '/buyProduct?id=' + id,//自己的服务接口地址
+                                type: 'POST',
+                                success: function (data) {
+                                        redirect();
+                                        // location.replace("localhost:5000/buy");
+                                },
+                                error: function () {
+                                        redirectIndex();
+                                },
+
+                        });
+                }else{
+                        alert("this item is solt out !");
+                }
+        }
+        function redirectIndex() {
+                window.location.href = "http://127.0.0.1:5000/index";
+        }
+        function redirect() {
+                window.location.href = "http://127.0.0.1:5000/buyPage";
+        }
+</script>
+
+{% endblock %}
+
+{% block mainBody %}
+<div class="bar" style="padding-top: 0px;">
+        <div class="nav">
+                <ul class="pc-nav" style="background-image:url(static/images/ic_down_nor.png);">
+                        <li><a href="/index-guys">Guys</a></li>
+                        <li><a href="/index-girls">Girls</a></li>
+                        <li><a href="/index-kids">Kids</a></li>
+                        <li>Sales</li>
+                        <input type="text" placeholder="Lowest" class="scope" style="z-index: 1;float:left">
+                        <img src="{{url_for("static", filename="images/ic_Swap.png")}}" />
+                        <input type="text" placeholder="Highest" class="scope">
+                        <input type="button" class="confirm" style="background-image: url(static/images/ic_down_pre.png);"
+                                value="Confirm" id="queren">
+                        <input type="button" class="confirm" style="background-image: url(static/images/ic_down_pre.png);" value={{username}} id = "login">
+                        
+                        <input type="button" class="confirm" style="background-image: url(static/images/ic_down_pre.png);"
+                                value="Add Product" onclick="window.location.href='/addProduct'"  width: 80;>
+                </ul>
+        </div>
+</div>
+<div id="productList">
+        <ul style="list-style: none;">
+                {% for item in products %}
+                <li id="itemLi">
+                        <p>
+                                <img width="200" height="200" src={{item['photo']}} onclick="getId(this)" id={{item['id']}} name={{item['stocks']}}>
+                                <br />
+                                <span style="color:red;font-size:1.1em;">&#8364;{{item['price']}}</span>
+                                <span style="color:blue;font-size:1.1em;">
+                                        <br />
+                                        Name:        {{ item['name'] }}
+                                        <br />
+                                        stocks:      {{ item['stocks'] }}
+                                        <br />
+                                        Style:       {{ item['type'] }}
+                                </span>
+                        </p>
+
+                </li>
+                {% endfor %}
+        </ul>
+</div>
+{% endblock %}

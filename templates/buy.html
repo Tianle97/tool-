@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block extraHead %}
+        <link rel="stylesheet" href="{{ url_for("static", filename="css/addProduct.css") }}" type="text/css"/>
+{% endblock %}
+    
+
+{% block mainBody %}
+<div class="bar" style="padding-top: 0px;" >
+        <div class="nav" >
+                <ul class="pc-nav" style="background-image:url(static/images/ic_down_nor.png);">
+                    <li><a href="/index-guys">Guys</a></li>
+                    <li><a href="/index-girls">Girls</a></li>
+                    <li><a href="/index-kids">Kids</a></li>
+                    <li>Sales</li>
+                    <input type="text" placeholder="Lowest" class="scope" style="z-index: 1;float:left">
+                    <img src="{{url_for("static", filename="images/ic_Swap.png")}}"/>
+                    <input type="text" placeholder="Highest" class="scope">
+                    <input type="button" class="confirm" style="background-image: url(static/images/ic_down_pre.png);" value="Confirm" id="queren">
+                    <input type="button" class="confirm" style="background-image: url(static/images/ic_down_pre.png);" value={{username}}  onclick="">
+                    <input type="button" class="confirm" style="background-image: url(static/images/ic_down_pre.png);" value="Add Product" onclick="window.location.href='/addProduct'">
+                </ul>
+        </div>
+</div>
+<div id="productList">
+        <form action="/getProduct" method="Post" enctype="multipart/form-data"> 
+                <ul style="list-style: none;">
+                        
+                        <li id="itemLi">
+                                <p>
+                                        <img width="200" height="200" src={{item['photo']}} id={{item['id']}}>
+                                        <br/>
+                                        <span style="color:red;font-size:1.1em;">&#8364;{{item['price']}}</span>
+                                        <span style="color:blue;font-size:1.1em;">
+                                                <br/>
+                                                {{ item['name'] }}
+                                                <br/>
+                                                {{ item['type'] }} 
+                                                <br/>
+                                                {{ item['stocks'] }} 
+                                        </span>
+                                </p>
+                                
+                        </li>
+                </ul>
+        
+                <p class="text1">Amounts: </p>
+                <p class="text1">
+                        <input class="text1" name="amounts" type="text" style="width: 240px; height: 25px;" autocomplete="off"/>
+                </p>
+                <p class="text3">{{get_flashed_messages()[0]}} </p>
+                <p class="text1">
+                    <button onclick="submit" style="margin: 0; padding: 0; border-width: 0;">
+                        <img width="70" height="25"
+                             src="{{url_for("static", filename="images/confirm-button.svg")}}" />
+                    </button>
+                    <a style="font-size:10px; margin-left:15px;" href="/index">back to All Products !</a>
+                </p>
+        </form>
+</div>
+{% endblock %}
